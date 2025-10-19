@@ -1,0 +1,1012 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Ajay Kumar — Frontend Engineer</title>
+  <meta name="description" content="Ajay Kumar — Frontend Engineer building fast, accessible, and maintainable web interfaces." />
+  <meta name="author" content="Ajay Kumar">
+  <meta name="theme-color" content="#2563eb">
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%232563eb'/%3E%3Ctext x='50' y='58' font-size='48' text-anchor='middle' fill='%23fff' font-family='Inter,Arial' font-weight='700'%3EA%3C/text%3E%3C/svg%3E">
+  
+  <style>
+    /*
+    ============================================================
+    MODERN UI STYLESHEET
+    ============================================================
+    */
+
+    /* === 1. Variables & Base === */
+    :root {
+      --accent: #2563eb;
+      --accent-light: #eff6ff; /* Was dbeafe */
+      --accent-dark: #1e40af;
+      --accent-grad: linear-gradient(45deg, var(--accent), #60a5fa);
+      
+      --text: #111827;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      
+      /* New layout colors */
+      --bg-html: #f3f4f6; /* Light gray page background */
+      --bg-card: #ffffff; /* White for cards/sidebar */
+
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+      
+      --radius-sm: 0.25rem;
+      --radius-md: 0.5rem;
+      --radius-lg: 0.75rem;
+      --radius-full: 9999px;
+    }
+
+    .dark {
+      --accent: #3b82f6;
+      --accent-light: #1f2937; /* Was 1e3a8a */
+      --accent-dark: #93c5fd;
+
+      --text: #f9fafb;
+      --muted: #9ca3af;
+      --border: #374151;
+      
+      /* New layout colors */
+      --bg-html: #111827; /* Dark page background */
+      --bg-card: #1f2937; /* Darker gray for cards/sidebar */
+    }
+    
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 6rem; /* Offset for scroll target */
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      /* MODERN: Use html bg color */
+      background-color: var(--bg-html);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    img, picture, video, canvas, svg {
+      display: block;
+      max-width: 100%;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    a:hover {
+      text-decoration: underline;
+      filter: brightness(1.1);
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      line-height: 1.2;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.5em;
+    }
+
+    p {
+      margin-bottom: 1em;
+      color: var(--muted);
+    }
+    
+    ul, ol {
+      list-style: none;
+    }
+
+    .muted { color: var(--muted); }
+    .accent { color: var(--accent); }
+
+    /* === 2. Layout (App Grid) === */
+    .app {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      grid-template-areas: "sidebar main";
+      /* MODERN: Add gap for card layout */
+      gap: 2rem;
+      padding: 2rem;
+      max-width: 1600px;
+      margin: 0 auto;
+    }
+
+    .sidebar {
+      grid-area: sidebar;
+      /* MODERN: Sidebar is now a card */
+      background-color: var(--bg-card);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      position: sticky;
+      top: 2rem;
+      height: calc(100vh - 4rem);
+      overflow-y: auto;
+    }
+
+    .main {
+      grid-area: main;
+      /* MODERN: Main area is now just a container for section-cards */
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      max-width: 1000px;
+    }
+    
+    /* MODERN: Each section is its own card */
+    .main > section {
+      background-color: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 3rem;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+    }
+    .dark .main > section,
+    .dark .sidebar {
+      border-color: var(--border);
+    }
+    
+    .section-title {
+      font-size: 1.75rem; /* Increased size */
+      font-weight: 800;
+      margin-bottom: 1.5rem;
+    }
+    
+    footer {
+      padding: 2rem;
+      margin-top: 1rem;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.875rem;
+      color: var(--muted);
+    }
+
+    /* === 3. Components === */
+    
+    /* Skip Link */
+    .skip-link {
+      position: absolute;
+      top: -100px;
+      left: 1rem;
+      background: var(--accent);
+      color: white;
+      padding: 0.5rem 1rem;
+      z-index: 100;
+      transition: top 0.3s;
+      border-radius: var(--radius-sm);
+    }
+    .skip-link:focus {
+      top: 1rem;
+    }
+    
+    /* MODERN: Mobile Header */
+    .mobile-header {
+      display: none; /* Hidden on desktop */
+      position: sticky;
+      top: 0;
+      width: 100%;
+      z-index: 50;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      
+      /* Glassmorphism */
+      background-color: hsla(0, 0%, 100%, 0.7); /* Light mode glass */
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      
+      border-bottom: 1px solid var(--border);
+    }
+    .dark .mobile-header {
+      background-color: hsla(222, 47%, 11%, 0.7); /* Dark mode glass */
+    }
+    
+    #mobileNavBtn {
+      background: none;
+      border: none;
+      color: var(--text);
+      cursor: pointer;
+    }
+    #mobileNavBtn svg {
+      width: 28px;
+      height: 28px;
+    }
+    
+    /* Hamburger icon */
+    .hamburger-icon path {
+      stroke: var(--text);
+      stroke-width: 2;
+      stroke-linecap: round;
+    }
+    
+    /* Close icon */
+    #mobileCloseBtn {
+      background: none;
+      border: none;
+      color: var(--text);
+      cursor: pointer;
+      padding: 0.5rem;
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      display: none; /* Hidden by default, shown in mobile sidebar */
+    }
+    #mobileCloseBtn svg {
+      width: 24px;
+      height: 24px;
+      stroke: var(--muted);
+      stroke-width: 2.5;
+    }
+    #mobileCloseBtn:hover svg {
+      stroke: var(--text);
+    }
+
+    /* Button */
+    .btn {
+      display: inline-block;
+      padding: 0.75rem 1.5rem; /* Slightly larger */
+      border-radius: var(--radius-full); /* MODERN: Pill shape */
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      text-align: center;
+      border: 2px solid transparent;
+    }
+    .btn.filled {
+      /* MODERN: Gradient button */
+      background: var(--accent-grad);
+      color: white;
+      border: none;
+    }
+    .btn.filled:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+      text-decoration: none;
+    }
+    .btn.ghost {
+      background-color: transparent;
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+    .btn.ghost:hover {
+      background-color: var(--accent-light);
+      text-decoration: none;
+    }
+    
+    /* Chip */
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+    }
+    .chip {
+      background-color: var(--accent-light);
+      color: var(--accent-dark);
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.25rem 0.75rem;
+      border-radius: var(--radius-full);
+    }
+    .dark .chip {
+      color: var(--accent);
+      background-color: #1e3a8a;
+    }
+
+    /* === 4. Sidebar === */
+    .avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: var(--radius-full);
+      border: 3px solid var(--border);
+      object-fit: cover;
+      margin: 0 auto;
+    }
+    
+    .profile-info { text-align: center; }
+    .profile-info .name { font-size: 1.25rem; font-weight: 700; color: var(--text); }
+    .profile-info .role { font-size: 0.9rem; color: var(--muted); }
+    
+    .profile-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+    
+    .social { display: flex; justify-content: center; gap: 1.5rem; margin-top: -0.5rem; }
+    .social a { color: var(--muted); }
+    .social a:hover { color: var(--text); }
+    .social img { width: 24px; height: 24px; filter: grayscale(1); opacity: 0.7; transition: all 0.2s ease; }
+    .social a:hover img { filter: grayscale(0); opacity: 1; transform: scale(1.1); }
+    .dark .social img { filter: invert(1) brightness(0.7) grayscale(1); }
+    .dark .social a:hover img { filter: invert(1) brightness(1) grayscale(0); }
+
+    .side-nav { margin-top: 1rem; }
+    .nav-list { display: flex; flex-direction: column; gap: 0.25rem; }
+    .nav-link {
+      display: block;
+      padding: 0.6rem 1rem;
+      border-radius: var(--radius-md); /* MODERN: Rounded shape */
+      color: var(--muted);
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .nav-link:hover {
+      background-color: var(--bg-html); /* Use html bg for hover */
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    /* MODERN: Pill-shaped active link */
+    .nav-link.active {
+      color: var(--accent);
+      font-weight: 700;
+      background-color: var(--accent-light);
+    }
+    .dark .nav-link:hover {
+      background-color: var(--border);
+    }
+
+    .theme-toggle {
+      margin-top: auto; /* Pushes to bottom */
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+    
+    /* Simple Checkbox Toggle */
+    .theme-switch-input {
+      -webkit-appearance: none;
+      appearance: none;
+      position: relative;
+      width: 40px;
+      height: 22px;
+      background: var(--muted);
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .theme-switch-input::before {
+      content: '';
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      background: white;
+      border-radius: 50%;
+      top: 3px;
+      left: 3px;
+      transition: transform 0.2s;
+    }
+    .theme-switch-input:checked {
+      background: var(--accent);
+    }
+    .theme-switch-input:checked::before {
+      transform: translateX(18px);
+    }
+    
+    /* For duplication in mobile header */
+    .theme-toggle-component {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    /* === 5. Main Content === */
+
+    /* Hero */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 2rem;
+      align-items: center;
+    }
+    /* MODERN: Much larger type */
+    .greeting {
+      font-size: 3rem;
+      font-weight: 800;
+      line-height: 1.2;
+    }
+    .lead {
+      font-size: 1.25rem;
+      color: var(--muted);
+      margin-top: 1.5rem;
+      max-width: 60ch;
+    }
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    .hero-right.illustration img {
+      border-radius: var(--radius-lg);
+      object-fit: cover;
+      height: 300px;
+      width: 100%;
+      box-shadow: var(--shadow-md);
+    }
+    
+    /* Skills */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    /* MODERN: Skills are now cleaner lists, no bars */
+    .skill {
+      background-color: var(--bg-html);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+    }
+    .dark .skill {
+      background-color: var(--bg-html);
+    }
+    .skill-head {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+    .skill-head img {
+      width: 24px;
+      height: 24px;
+    }
+    .skill .muted {
+      font-size: 0.9rem;
+    }
+    .dark .skill-head img {
+      filter: invert(1);
+      opacity: 0.8;
+    }
+    
+    /* Education */
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      border-left: 2px solid var(--border);
+      padding-left: 1.5rem;
+    }
+    .timeline li { position: relative; }
+    .timeline li::before { /* Timeline dot */
+      content: '';
+      position: absolute;
+      left: -24px;
+      top: 6px;
+      width: 12px;
+      height: 12px;
+      background-color: var(--accent);
+      border-radius: 50%;
+      border: 2px solid var(--bg-card);
+    }
+    .time { font-size: 0.85rem; font-weight: 600; color: var(--muted); margin-bottom: 0.25rem; }
+    .tl-content strong { font-weight: 600; color: var(--text); display: block; margin-bottom: 0.25rem; }
+    .tl-content .muted { font-size: 0.9rem; }
+    
+    /* Projects */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    .project-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.3s ease;
+    }
+    .project-card:hover {
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-8px); /* More pronounced lift */
+    }
+    .project-img { width: 100%; height: 200px; object-fit: cover; border-bottom: 1px solid var(--border); }
+    .project-body { padding: 1.5rem; }
+    .project-body h4 { font-size: 1.15rem; font-weight: 700; }
+    .project-body p { font-size: 0.9rem; margin-bottom: 1rem; }
+    .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .tag {
+      font-size: 0.75rem;
+      font-weight: 600;
+      background-color: var(--bg-html);
+      color: var(--muted);
+      padding: 0.25rem 0.5rem;
+      border-radius: var(--radius-sm);
+    }
+    .dark .tag {
+      background-color: var(--bg-html);
+    }
+    
+    /* Contact Form */
+    .contact-form { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem; }
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 0.75rem;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      background-color: var(--bg-html); /* Changed from card */
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      transition: all 0.2s ease;
+    }
+    .dark .contact-form input,
+    .dark .contact-form textarea {
+      background-color: var(--bg-html);
+    }
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      outline: 2px solid var(--accent);
+      border-color: var(--accent);
+      background-color: var(--bg-card); /* Change on focus */
+    }
+    .contact-form textarea { grid-column: 1 / -1; min-height: 120px; resize: vertical; }
+    .contact-form input[name="subject"] { grid-column: 1 / -1; }
+    #formStatus { margin-top: 0.5rem; font-size: 0.9rem; }
+    .contact-actions { display: flex; flex-wrap: wrap; gap: 1rem; }
+
+    /*
+    ============================================================
+    MODERN: Responsive Mobile Layout
+    ============================================================
+    */
+    
+    @media (max-width: 1024px) {
+      .app {
+        grid-template-columns: 1fr;
+        grid-template-areas: "main"; /* Sidebar is no longer in the flow */
+        padding: 0;
+        gap: 0;
+      }
+      
+      .sidebar {
+        /* MODERN: Becomes a slide-out overlay */
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        height: 100vh;
+        width: 300px;
+        z-index: 100;
+        border-radius: 0;
+        border-right: 1px solid var(--border);
+        box-shadow: var(--shadow-lg);
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+      }
+      
+      #mobileCloseBtn {
+        display: block; /* Show close button in sidebar */
+      }
+      
+      .theme-toggle.desktop {
+        display: none; /* Hide desktop theme toggle */
+      }
+
+      .main {
+        padding: 0 0 2rem 0; /* No padding on main container */
+        gap: 0;
+        transition: filter 0.3s ease;
+        max-width: 100%;
+      }
+      
+      /* Main content sections on mobile */
+      .main > section {
+        border-radius: 0;
+        padding: 2.5rem 1.5rem;
+        border-left: none;
+        border-right: none;
+        border-top: none;
+        box-shadow: none;
+      }
+      
+      /* This is the new sticky mobile header */
+      .mobile-header {
+        display: flex;
+      }
+      
+      /* State when mobile menu is open */
+      .app.menu-open .sidebar {
+        transform: translateX(0);
+      }
+      .app.menu-open .main {
+        /* Blur/darken main content */
+        filter: blur(5px) brightness(0.8);
+        pointer-events: none;
+        user-select: none;
+      }
+      
+      footer {
+        padding: 2rem 1.5rem;
+        flex-direction: column;
+        gap: 0.5rem;
+        text-align: center;
+      }
+      
+      .hero {
+        text-align: center;
+      }
+      .hero-cta, .chips {
+        justify-content: center;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+      .hero-right.illustration {
+        display: none; /* Hide illustration on mobile */
+      }
+      .greeting { font-size: 2.5rem; }
+      .lead { font-size: 1.1rem; }
+      
+      .contact-form {
+        grid-template-columns: 1fr;
+      }
+      .contact-form input[name="company"] {
+        grid-column: 1 / -1;
+      }
+    }
+
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <div class="app" id="app">
+    
+    <aside class="sidebar" aria-label="Profile and navigation">
+      
+      <button id="mobileCloseBtn" aria-label="Close menu">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+      
+      <img class="avatar" src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?q=80&w=800&auto=format&fit=crop" alt="Ajay Kumar">
+      <div class="profile-info">
+        <div class="name">Siam Ahmed</div>
+        <div class="role">Frontend Engineer</div>
+      </div>
+
+      <div class="profile-actions">
+        <a class="btn ghost" href="mailto:siam87693@gmail.com" title="Email">Email</a>
+        <a class="btn filled" href="/resume.pdf" title="Download resume" download>Resume</a>
+      </div>
+
+      <div class="social">
+        <a href="https://github.com/siam-ahmed009" target="_blank" rel="noreferrer" aria-label="GitHub">
+          <img alt="" src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/github.svg">
+        </a>
+        <a href="https://x.com/ajaycoding9334" target="_blank" rel="noreferrer" aria-label="X">
+          <img alt="" src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/x.svg">
+        </a>
+        <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer" aria-label="LinkedIn">
+          <img alt="" src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/linkedin.svg">
+        </a>
+      </div>
+
+      <nav class="side-nav" aria-label="Main navigation">
+        <ul class="nav-list" id="mainNav">
+          <li><a href="#about" class="nav-link active">About</a></li>
+          <li><a href="#skills" class="nav-link">Skills</a></li>
+          <li><a href="#education" class="nav-link">Education</a></li>
+          <li><a href="#projects" class="nav-link">Projects</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="theme-toggle desktop">
+        <div class="theme-toggle-component">
+          <label for="themeSwitchDesktop">Theme</label>
+          <input id="themeSwitchDesktop" class="theme-switch-input" type="checkbox" aria-label="Toggle dark theme">
+        </div>
+      </div>
+    </aside>
+
+    <main class="main" id="main" tabindex="-1">
+      
+      <header class="mobile-header">
+        <button id="mobileNavBtn" aria-label="Open menu">
+          <svg class="hamburger-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+            <path d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </header>
+
+      <section class="hero" id="about">
+        <div class="hero-left">
+          <div class="greeting">Hello, I'm <span class="accent">Ajay</span> — Frontend Engineer</div>
+          <p class="lead">I build fast, accessible, and maintainable web interfaces. I focus on performance, accessibility, and clear component-driven design.</p>
+          <div class="hero-cta">
+            <a class="btn filled" href="#projects">View Work</a>
+            <a class="btn ghost" href="#contact">Get in touch</a>
+          </div>
+          <div class="chips">
+            <div class="chip">Design Systems</div>
+            <div class="chip">Accessibility</div>
+            <div class="chip">Performance</div>
+          </div>
+        </div>
+        <div class="hero-right illustration">
+          <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=1200&auto=format&fit=crop" alt="Interface preview">
+        </div>
+      </section>
+
+      <section class="about" aria-labelledby="about-heading">
+        <div class="container">
+          <h3 class="section-title" id="about-heading">About</h3>
+          <p class="muted" style="margin-top:10px;">
+            I'm a frontend engineer focused on shipping production-ready UI, building reusable component libraries and improving user experience through thoughtful engineering. I enjoy collaborating with designers and backend engineers to deliver performant and accessible products.
+          </p>
+          <ul style="margin-top:12px;color:var(--muted);list-style:disc;padding-left:20px">
+            <li>Experience with modern toolchains: Vite, Webpack, Rollup</li>
+            <li>Frameworks: React, Next.js, TypeScript</li>
+            <li>Testing & quality: Jest, Playwright, ESLint, Prettier</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="skills" id="skills">
+        <div class="container">
+          <h3 class="section-title">Skills</h3>
+          <div class="skills-grid">
+            <div class="skill">
+              <div class="skill-head"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/html5.svg" alt=""> HTML5</div>
+              <div class="muted">Semantic markup, accessible patterns, SEO-friendly structure</div>
+            </div>
+            <div class="skill">
+              <div class="skill-head"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/css3.svg" alt=""> CSS & Layout</div>
+              <div class="muted">Responsive design, Grid / Flexbox, utility-first & BEM</div>
+            </div>
+            <div class="skill">
+              <div class="skill-head"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/javascript.svg" alt=""> JavaScript</div>
+              <div class="muted">ESNext, modular code, async patterns</div>
+            </div>
+            <div class="skill">
+              <div class="skill-head"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/react.svg" alt=""> React & State</div>
+              <div class="muted">Hooks, context, component design</div>
+            </div>
+            <div class="skill">
+              <div class="skill-head"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/typescript.svg" alt=""> TypeScript</div>
+              <div class="muted">Type safety, generics, incremental adoption</div>
+            </div>
+            <div class="skill">
+              <div class="skill-head"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/git.svg" alt=""> CI / Git</div>
+              <div class="muted">Git workflows, CI setup, release automation</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="education" id="education">
+        <div class="container">
+          <h3 class="section-title">Education</h3>
+          <ul class="timeline">
+            <li>
+              <div class="time">2022 – 2025</div>
+              <div class="tl-content">
+                <strong>Bachelor of Computer Application</strong>
+                <div class="muted">H.D JAIN COLLEGE ARA — 72% — Focused on software development and web technologies.</div>
+              </div>
+            </li>
+            <li>
+              <div class="time">2020 – 2022</div>
+              <div class="tl-content">
+                <strong>Intermediate</strong>
+                <div class="muted">J.J College ARA — 79%</div>
+              </div>
+            </li>
+            <li>
+              <div class="time">2020</div>
+              <div class="tl-content">
+                <strong>Matriculation</strong>
+                <div class="muted">S.S +2 High School Jagdishpur — 80.2%</div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="projects" id="projects">
+        <div class="container">
+          <h3 class="section-title">Selected Projects</h3>
+          <div class="projects-grid">
+            <article class="project-card">
+              <img class="project-img" src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1600&auto=format&fit=crop" alt="E-commerce project">
+              <div class="project-body">
+                <h4>E-Commerce Website</h4>
+                <p>Responsive online store with component-driven architecture and accessible checkout flow.</p>
+                <div class="tags"><span class="tag">React</span> <span class="tag">TypeScript</span> <span class="tag">Stripe</span></div>
+                <div style="margin-top:10px"><a class="btn ghost" href="#">View</a> <a class="btn ghost" href="https://github.com/ajaycoding9334" target="_blank">Code</a></div>
+              </div>
+            </article>
+            <article class="project-card">
+              <img class="project-img" src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1600&auto=format&fit=crop" alt="Landing page project">
+              <div class="project-body">
+                <h4>Business Landing Page</h4>
+                <p>Lead-focused single-page site with fast load times and accessible forms.</p>
+                <div class="tags"><span class="tag">HTML</span> <span class="tag">CSS</span> <span class="tag">Performance</span></div>
+                <div style="margin-top:10px"><a class="btn ghost" href="#">View</a></div>
+              </div>
+            </article>
+            <article class="project-card">
+              <img class="project-img" src="https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=1600&auto=format&fit=crop" alt="Blog theme project">
+              <div class="project-body">
+                <h4>Personal Blog Theme</h4>
+                <p>Readable, content-first theme optimized for SEO and long-form content.</p>
+                <div class="tags"><span class="tag">HTML</span> <span class="tag">CSS</span></div>
+                <div style="margin-top:10px"><a class="btn ghost" href="#">View</a></div>
+              </div>
+            </article>
+            <article class="project-card">
+              <img class="project-img" src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1600&auto=format&fit=crop" alt="Analytics dashboard">
+              <div class="project-body">
+                <h4>Analytics Dashboard UI</h4>
+                <p>Data visualization UI built with components, accessible controls and responsive layouts.</p>
+                <div class="tags"><span class="tag">Charts</span> <span class="tag">UI/UX</span></div>
+                <div style="margin-top:10px"><a class="btn ghost" href="#">View</a></div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="contact" id="contact">
+        <div class="container">
+          <h3 class="section-title">Contact</h3>
+          <p class="muted" style="margin-top:10px;">Open to frontend and full-stack collaborations. Use the form below or reach out directly via email.</p>
+
+          <form id="contactForm" class="contact-form" aria-label="Contact form">
+            <input id="name" name="name" type="text" placeholder="Your name" required>
+            <input id="email" name="email" type="email" placeholder="Your email" required>
+            <input id="subject" name="subject" type="text" placeholder="Subject" required>
+            <input id="company" name="company" type="text" placeholder="Company (optional)">
+            <textarea id="message" name="message" placeholder="Message" required></textarea>
+            <div style="display:flex;gap:10px;align-items:center;grid-column:1/-1">
+              <button type="submit" class="btn filled">Send message</button>
+              <div class="muted">Or <a href="mailto:siam87693@gmail.com">email directly</a></div>
+            </div>
+            <div id="formStatus" class="muted" role="status" aria-live="polite" style="grid-column:1/-1"></div>
+          </form>
+
+          <div class="contact-actions" style="margin-top:18px;">
+            <a class="btn ghost" href="https://github.com/ajaycoding9334" target="_blank">GitHub</a>
+            <a class="btn ghost" href="https://www.linkedin.com/" target="_blank">LinkedIn</a>
+            <a class="btn ghost" href="/resume.pdf" download>Download Resume</a>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        <span>© 2025 Siam Ahmed. All rights reserved.</span>
+        <span>Built with ❤️ using HTML & CSS.</span>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    // --- Contact Form ---
+    const form = document.getElementById('contactForm');
+    const formStatus = document.getElementById('formStatus');
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      formStatus.textContent = 'Sending...';
+      setTimeout(() => {
+        formStatus.textContent = 'Message sent successfully!';
+        form.reset();
+      }, 1000);
+    });
+
+    // --- Dark Theme Toggle ---
+    const themeSwitchDesktop = document.getElementById('themeSwitchDesktop');
+    const themeSwitchMobile = document.getElementById('themeSwitchMobile');
+
+    function handleThemeToggle(e) {
+      const isChecked = e.target.checked;
+      document.documentElement.classList.toggle('dark', isChecked);
+      
+      // Sync both switches
+      if (e.target.id === 'themeSwitchDesktop') {
+        themeSwitchMobile.checked = isChecked;
+      } else {
+        themeSwitchDesktop.checked = isChecked;
+      }
+      
+      // Optional: Save preference
+      // localStorage.setItem('theme', isChecked ? 'dark' : 'light');
+    }
+
+    themeSwitchDesktop.addEventListener('change', handleThemeToggle);
+    themeSwitchMobile.addEventListener('change', handleThemeToggle);
+
+    // Optional: Check for saved theme preference on load
+    // (function() {
+    //   const savedTheme = localStorage.getItem('theme');
+    //   if (savedTheme === 'dark') {
+    //     themeSwitchDesktop.checked = true;
+    //     themeSwitchMobile.checked = true;
+    //     document.documentElement.classList.add('dark');
+    //   }
+    // })();
+
+    // --- Active Nav Link on Scroll ---
+    const sections = document.querySelectorAll('main > section[id]');
+    const navLinks = document.querySelectorAll('#mainNav .nav-link');
+    const navList = document.getElementById('mainNav');
+
+    const observerOptions = {
+      root: null, 
+      rootMargin: '0px 0px -60% 0px',
+      threshold: 0
+    };
+
+    const observerCallback = (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          const activeLink = document.querySelector(`#mainNav .nav-link[href="#${id}"]`);
+          
+          navLinks.forEach(link => link.classList.remove('active'));
+          
+          if (activeLink) {
+            activeLink.classList.add('active');
+          }
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+    sections.forEach(section => observer.observe(section));
+    
+    // --- MODERN: Mobile Menu Toggle ---
+    const app = document.getElementById('app');
+    const mobileNavBtn = document.getElementById('mobileNavBtn');
+    const mobileCloseBtn = document.getElementById('mobileCloseBtn');
+
+    mobileNavBtn.addEventListener('click', () => {
+      app.classList.add('menu-open');
+    });
+
+    mobileCloseBtn.addEventListener('click', () => {
+      app.classList.remove('menu-open');
+    });
+    
+    // Close menu when a nav link is clicked
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        app.classList.remove('menu-open');
+      });
+    });
+    
+  </script>
+</body>
+</html>
